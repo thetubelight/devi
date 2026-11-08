@@ -1,0 +1,17 @@
+# build output
+build/
+build-debug/
+bin/
+.cache/
+*.o
+*.obj
+*.log
+
+# editors (the shared .vscode/ config IS committed)
+.idea/
+
+# tool output
+config.json
+
+#personal-logs
+DEVLOGS.md
