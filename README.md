@@ -26,7 +26,7 @@ Playing strength has not been rated yet. See [Testing and verification](#testing
 ## Download
 
 A prebuilt 64-bit Windows binary is attached to each release:
-**[Releases](https://github.com/thetubelight/devi/releases)** (`devi-v1.0-win64.exe`, no installer or extra DLLs needed).
+**[Releases](https://github.com/thetubelight/devi/releases)** (`devi-v1.1-win64.exe`, no installer or extra DLLs needed).
 Windows SmartScreen may warn about an unsigned program; choose *More info > Run anyway*, or build from source below.
 
 ## Build from source (Windows + VS Code)
@@ -122,7 +122,7 @@ build\perft_tests.exe --deep                           # perft depth 6-7 (takes 
 
 - **Unit tests:** FEN round-trips and rejection of bad input, make/unmake symmetry on random games, Zobrist consistency,
   en passant / castling / promotion edge cases, magic tables against a slow reference, and search sanity checks.
-- **Bench fingerprint:** `devi.exe bench 7` prints `1107618 nodes` for v1.0. The count depends only on the search and
+- **Bench fingerprint:** `devi.exe bench 7` prints `1107623 nodes` for v1.1. The count depends only on the search and
   evaluation code, so an unexpected change means behavior changed.
 - **SPRT:** adding the transposition table, PVS, null-move pruning and LMR to a plain negamax baseline was accepted at roughly
   +240 Elo (very short time control, so a rough figure). Results are logged in [tests/sprt/README.md](tests/sprt/README.md).
@@ -132,10 +132,10 @@ Step-by-step instructions, including SPRT setup: **[docs/TESTING.md](docs/TESTIN
 
 ## Roadmap
 
-- **v1.1:** proper repetition handling. Today any single repetition counts as a draw; the plan is the standard approach
-  (a repeat inside the search tree is a draw, a repeat of a game-history position needs a true threefold).
+- **Current:** Lichess bot integration.
+- **Next:** perform SPRT/smoke-test, Regression check for v1.1 vs v1.0 and log the results in [tests/sprt/README.md](tests/sprt/README.md).
 - **v1.2:** record the en passant square only when a capture is actually possible (touches FEN, Zobrist and perft).
-- **Later:** Lichess bot, aspiration windows, static exchange evaluation, a richer evaluation and tuning, multithreaded search.
+- **Later:** aspiration windows, static exchange evaluation, a richer evaluation and tuning, multithreaded search.
 
 ## Acknowledgements
 

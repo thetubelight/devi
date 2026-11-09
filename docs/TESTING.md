@@ -54,7 +54,7 @@ repeat on the position after that move.
 build\devi.exe bench 7
 ```
 
-Prints the total nodes over a fixed set of positions. For Devi v1.0 this is **`1107618 nodes`** (depth 6 gives `505819`).
+Prints the total nodes over a fixed set of positions. For Devi v1.1 this is **`1107623 nodes`** (depth 6 gives `505823`).
 The count only depends on the search/eval code, not on your machine, so:
 - you did **not** touch search, evaluation or move ordering, and the number changed: something is wrong; investigate.
 - you **did** change them: a different number is expected; update the fingerprint in this file and in `README.md`.

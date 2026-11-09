@@ -14,7 +14,7 @@
 
 namespace {
 const char* ENGINE_NAME = "Devi";
-const char* ENGINE_VERSION = "1.0";
+const char* ENGINE_VERSION = "1.1";
 const char* AUTHOR = "Rudr";
 
 const char* BENCH_FENS[] = {
