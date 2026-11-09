@@ -9,6 +9,8 @@ search with a transposition table, and a deliberately simple evaluation that is 
 Devi has no board of its own: it speaks the UCI protocol over stdin/stdout, so you play it through a chess GUI
 (Arena, Cute Chess, En Croissant, ...) or any other UCI-compatible tool.
 
+Challenge Devi on Lichess (when she's online): https://lichess.org/@/devichessengine
+
 ## Features
 
 - **Board:** bitboards plus a mailbox mirror, Zobrist hashing, FEN parsing and printing (missing clock fields are tolerated).
@@ -132,7 +134,6 @@ Step-by-step instructions, including SPRT setup: **[docs/TESTING.md](docs/TESTIN
 
 ## Roadmap
 
-- **Current:** Lichess bot integration.
 - **Next:** perform SPRT/smoke-test, Regression check for v1.1 vs v1.0 and log the results in [tests/sprt/README.md](tests/sprt/README.md).
 - **v1.2:** record the en passant square only when a capture is actually possible (touches FEN, Zobrist and perft).
 - **Later:** aspiration windows, static exchange evaluation, a richer evaluation and tuning, multithreaded search.
