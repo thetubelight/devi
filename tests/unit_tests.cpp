@@ -131,6 +131,38 @@ static void testSpecialMoves() {
     }
 }
 
+static void play(Position& p, const char* uci) {
+    MoveList ml; generate(p, ml);
+    for (Move m : ml)
+        if (moveToString(m) == uci) { CHECK(p.makeIfLegal(m), std::string("legal move ") + uci); return; }
+    CHECK(false, std::string("move not found: ") + uci);
+}
+
+static void testRepetition() {
+    const char* loop[4] = {"g1f3", "g8f6", "f3g1", "f6g8"};   // returns to the start position
+    Position p;
+    p.setStartpos();                                            // A: third occurrence = draw
+    for (const char* m : loop) play(p, m);
+    for (const char* m : loop) play(p, m);
+    CHECK(p.isRepetition(4), "threefold across game history + search is a draw");
+
+    p.setStartpos();                                            // B: one earlier game-history occurrence is NOT a draw
+    play(p, "g1f3"); play(p, "g8f6"); play(p, "f3g1");
+    play(p, "f6g8");
+    CHECK(!p.isRepetition(1), "single repeat of a game-history position is not a draw");
+
+    p.setStartpos();                                            // C: repeat inside the search tree IS a draw
+    for (const char* m : loop) play(p, m);
+    CHECK(!p.isRepetition(4), "returning to the root once is not a draw");
+    play(p, "g1f3");
+    CHECK(p.isRepetition(5), "repeat inside the search tree is a draw");
+
+    p.setStartpos();                                            // D: a pawn move resets tracking
+    for (const char* m : loop) play(p, m);
+    play(p, "e2e4"); play(p, "e7e5");
+    CHECK(!p.isRepetition(2), "positions before a pawn move cannot repeat");
+}
+
 static void testSearch() {
     std::atomic<bool> stop{false};
     struct T { const char* fen; const char* best; int mateIn; };
@@ -162,6 +194,7 @@ int main() {
     testFen();           std::cout << "fen tests done\n";
     testSpecialMoves();  std::cout << "special-move tests done\n";
     testRandomPlayouts();std::cout << "random playout tests done\n";
+    testRepetition();    std::cout << "draw by repetition tests done\n";
     testSearch();        std::cout << "search tests done\n";
     std::cout << (failures ? "FAILED, failures=" : "ALL UNIT TESTS PASSED, failures=") << failures << "\n";
     return failures != 0;

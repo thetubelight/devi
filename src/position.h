@@ -52,8 +52,8 @@ public:
     bool   inCheck() const { return attacked(kingSq(stm), ~stm); }
     Bitboard of(Color c, PieceType t) const { return pieces[makePiece(c, t)]; }
 
-    //to be updated : add a parameter ply 
-    bool isRepetition() const;             // current position occurred earlier in the reversible history
+    // updated in v1.1 : to fix draw repetition logic 
+    bool isRepetition(int ply) const;             // current position occurred earlier in the reversible history
 
     bool insufficientMaterial() const;     // K vs K, K+minor vs K
     uint64_t computeKey() const;           // from scratch (the incremental key must always equal this)
