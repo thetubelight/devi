@@ -126,14 +126,14 @@ struct Searcher {
     }
 
     // ---------------- main search ----------------
-    bool isDraw() const { return pos.halfmove >= 100 || pos.isRepetition() || pos.insufficientMaterial(); }
+    bool isDraw(int ply) const { return pos.halfmove >= 100 || pos.isRepetition(ply) || pos.insufficientMaterial(); }
 
     static int scoreToTT(int s, int ply) { return s >= MATE - MAX_PLY ? s + ply : s <= -MATE + MAX_PLY ? s - ply : s; }
     static int scoreFromTT(int s, int ply) { return s >= MATE - MAX_PLY ? s - ply : s <= -MATE + MAX_PLY ? s + ply : s; }
 
     int negamax(int depth, int alpha, int beta, int ply, bool allowNull) {
         pvLen[ply] = ply;
-        if (ply > 0 && isDraw()) return 0;
+        if (ply > 0 && isDraw(ply)) return 0;
         if (ply >= MAX_PLY - 1) return evaluate(pos);
 
         bool inCheck = pos.inCheck();

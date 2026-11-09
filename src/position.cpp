@@ -151,13 +151,17 @@ bool Position::makeIfLegal(Move m) {
     return true;
 }
 
-//this function needs to be updated in the next patch/version. draw by repetition should look for threefold repetitions rather than just single repetition from both sides.
-bool Position::isRepetition() const {
-    // Same side to move => look back in steps of 2, no further than the last irreversible move.
+// updated in v1.1 : to fix draw repetition logic
+bool Position::isRepetition(int ply) const {
     int lowest = histSize - halfmove;
     if (lowest < 0) lowest = 0;
-    for (int i = histSize - 2; i >= lowest; i -= 2)
-        if (hist[i].key == key) return true;
+    const int rootIdx = histSize - ply;           // hist[] index of the root position
+    int seen = 0;
+    for (int i = histSize - 2; i >= lowest; i -= 2) {
+        if (hist[i].key != key) continue;
+        if (i > rootIdx) return true;             // earlier occurrence inside the search tree
+        if (++seen == 2) return true;             // root/game history: needs a true threefold
+    }
     return false;
 }
 

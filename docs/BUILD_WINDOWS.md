@@ -192,13 +192,13 @@ position startpos moves e2e4 e7e5
 go movetime 1000
 ```
 
-You should see `id name Devi 1.0 ... uciok`, then `readyok`, then a few `info depth ...` lines and finally `bestmove ...`.
+You should see `id name Devi 1.1 ... uciok`, then `readyok`, then a few `info depth ...` lines and finally `bestmove ...`.
 Type `quit` to exit.
 
 Quick non-interactive checks:
 
 ```powershell
-.\build\devi.exe bench 6                                 # prints "505819 nodes ..." (the node count is a fingerprint of the search)
+.\build\devi.exe bench 6                                 # prints "505823 nodes ..." (the node count is a fingerprint of the search)
 "position startpos`nperft 5`n" | .\build\devi.exe        # prints "Nodes: 4865609" (move generation check)
 ```
 
